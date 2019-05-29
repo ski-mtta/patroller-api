@@ -24,4 +24,4 @@ export default {
         url: "https://opensource.org/licenses/GPL-3.0"
     },
     version: "0.1.0"
-}
+};

@@ -6,7 +6,10 @@
   "scripts": {
     "prepare": "npx tsc",
     "build": "npx tsc",
-    "start": "node ./bin/app.js",
+    "gen:spec": "npm run build && node ./bin/spec.js",
+    "gen:tests": "npm run gen:spec && npx oatts generate -s ./dist/specification/openapi.json -w ./tests",
+    "gen:dts": "npm run gen:spec && npx dtsgen -o ./api.d.ts ./dist/specification/openapi.json",
+    "start": "npm run build && node ./bin/app.js",
     "format:check": "npx prettier -l './lib/**/*.ts'",
     "format:update": "npx prettier --write './lib/**/*.ts'",
     "lint": "npx tslint --project . --config tslint.json",
@@ -20,6 +23,10 @@
   "author": "Ryan Tate <ryan.michael.tate@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "chakram": "^1.5.0",
+    "dtsgenerator": "^2.0.7",
+    "mocha": "^6.1.4",
+    "oatts": "^1.2.4",
     "prettier": "^1.17.1",
     "tslint": "^5.12.1",
     "tslint-eslint-rules": "^5.4.0",
@@ -29,7 +36,11 @@
     "@smartrecruiters/openapi-first": "^0.3.2",
     "@smartrecruiters/openapi-schemas-validator": "^0.2.0",
     "@types/express": "^4.16.1",
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
-    "openapi-schema-validation": "^0.4.2"
+    "jsonfile": "^5.0.0",
+    "log4js": "^4.3.0",
+    "openapi-schema-validation": "^0.4.2",
+    "swagger-routes-express": "^3.0.1"
   }
 }

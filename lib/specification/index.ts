@@ -1,18 +1,14 @@
 import info from "./info";
 
-import {
-    development
-} from "./servers";
+import { development } from "./servers";
 
 import paths from "./paths";
-import components from "./components"
+import components from "./components";
 
 export default {
     openapi: "3.0.0",
     info,
-    servers: [
-        development
-    ],
+    servers: [development],
     paths,
     components
-}
+};

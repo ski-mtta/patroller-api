@@ -16,9 +16,12 @@ const PATROLLERS_GEAR_CHECKOUT_ID = `${PATROLLERS_GEAR_CHECKOUT}/{checkout_id}`;
 const PATROLLERS_SNOW_MOBILE_CHECKOUT = `${PATROLLERS_ID_PATH}/snow_mobile_checkout`;
 const PATROLLERS_SNOW_MOBILE_CHECKOUT_ID = `${PATROLLERS_SNOW_MOBILE_CHECKOUT}/{checkout_id}`;
 
-
 export default {
-    [PATROLLERS_PATH]: {},
+    [PATROLLERS_PATH]: {
+        summary: "Patroller API Base Url",
+        description: "Patroller Web APIs",
+        post: require("./post").default
+    },
     [PATROLLERS_ID_PATH]: {},
     [PATROLLERS_SCHEDULE]: {},
     [PATROLLERS_SCHEDULE_ID]: {},
@@ -29,5 +32,5 @@ export default {
     [PATROLLERS_GEAR_CHECKOUT]: {},
     [PATROLLERS_GEAR_CHECKOUT_ID]: {},
     [PATROLLERS_SNOW_MOBILE_CHECKOUT]: {},
-    [PATROLLERS_SNOW_MOBILE_CHECKOUT_ID]: {},
-}
+    [PATROLLERS_SNOW_MOBILE_CHECKOUT_ID]: {}
+};

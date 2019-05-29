@@ -1,39 +1,37 @@
-import openApiFirst from '@smartrecruiters/openapi-first';
-import express, { Application, Request, Response } from 'express';
+import express, { Application, Request, Response } from "express";
+import { connector } from "swagger-routes-express";
+import log4js, { Logger } from "log4js";
+import bodyParser from "body-parser";
 
-const queryMiddleware = require('@smartrecruiters/openapi-first/middlewares/query/defaults');
-const controllerMiddleware = require('@smartrecruiters/openapi-first/middlewares/controllers/by-property');
+import { initLogger } from "./utils/logger";
+import { PatrollerApiOptions } from "./interfaces";
 
-export default class PatrolApi {
+export default class PatrollerApi {
     spec: object; // oas 3.0 specification
-    app: Application
-    api: Application
+    api: object;
+    app: Application;
+    logger: Logger;
+    port: number;
 
-    constructor() {
-        this.spec = require('../specification');
+    constructor(options: PatrollerApiOptions) {
+        this.logger = initLogger(options.logger || {});
+        this.spec = require("../specification").default;
+        this.api = require("./controllers").default;
 
         // create express app
         this.app = express();
 
-        // create open api specification initializer
-        this.api = openApiFirst(this.app, this.spec)
+        // parse application/x-www-form-urlencoded
+        this.app.use(bodyParser.urlencoded({ extended: false }))
+        
+        // parse application/json
+        this.app.use(bodyParser.json())
 
-        // this.app.use((req: Request, res: Response, next) => {
-        //     console.log('req', req.path);
-        //     next();
-        // })
-
-        // to enable setting default values on empty query params
-        // this.api.use(queryMiddleware())
-
-        const dir = `${process.cwd()}/dist/server`;
-        console.log('dir', dir);
-
-        // to link the specification with code in 'api' directory
-        this.api.use(controllerMiddleware({ dir }))
-
-        this.app.listen(8080)
-        console.log("server listening on 8080");
+        // Connect swagger-routes-express;
+        connector(this.api, this.spec, undefined)(this.app);
+        this.port = options.port || 5000;
+        this.app.listen(this.port, () => {
+            this.logger.info(`Patroller API Listening on ${this.port}`);
+        });
     }
 }
-

@@ -3,4 +3,4 @@ export default {
     format: "int32",
     example: 59,
     description: "Ski Patrol Number"
-}
+};

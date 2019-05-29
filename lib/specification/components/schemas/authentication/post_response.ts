@@ -1,11 +1,9 @@
-import access_token from '../access_token';
+import access_token from "../properties/access_token";
 
 export default {
     type: "object",
-    required: [
-        "access_token"
-    ],
+    required: ["access_token"],
     properties: {
-        access_token
+        access_token,
     }
-}
+};

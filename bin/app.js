@@ -1,3 +1,9 @@
-const PatrolApi = require('../dist/server').default;
+const PatrollerApi = require('../dist/server').default;
 
-const api = new PatrolApi();
+const api = new PatrollerApi({
+    port: 5000,
+    logger: {
+        type: 'stdout',
+        level: 'info',
+    }
+});

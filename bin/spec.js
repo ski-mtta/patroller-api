@@ -1,13 +1,22 @@
-const spec = require('../dist/specification').default;
 const { SchemaValidator } = require('@smartrecruiters/openapi-schemas-validator')
-const version = 3;
+const jsonfile = require('jsonfile');
 
-const validator = new SchemaValidator(spec)
+const SPEC = require('../dist/specification').default;
+const OUTPUT_DIRECTORY = `${process.cwd()}/dist/specification`;
+const FILE_NAME = 'openapi.json';
+const FILE_PATH = `${OUTPUT_DIRECTORY}/${FILE_NAME}`;
+
+const { validator } = new SchemaValidator(SPEC)
 
 if (!validator.valid) {
-    console.log('errors', JSON.stringify(validator.error, null, 2));
+    console.log('validator', validator);
+    console.error("Specification is invalid");
 } else {
-    console.log("Schema is Valid!");
+    jsonfile.writeFile(FILE_PATH, SPEC).then(() => {
+        console.log(`Wrote file to ${FILE_PATH}`);
+    }).catch((error) => {
+        console.error(error);
+    })
 }
 
 

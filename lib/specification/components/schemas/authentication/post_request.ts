@@ -1,5 +1,5 @@
-import sp_number from '../sp_number';
-import password from '../password';
+import sp_number from "../properties/sp_number";
+import password from "../properties/password";
 
 export default {
     type: "object",
@@ -9,6 +9,6 @@ export default {
     ],
     properties: {
         sp_number,
-        password
+        password,
     }
-}
+};
