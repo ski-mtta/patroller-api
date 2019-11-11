@@ -1,10 +1,10 @@
 import log4js, { Logger, Configuration } from "log4js";
 import { LoggerOptions } from "../interfaces";
 
-export function initLogger(options: LoggerOptions): Logger {
-    const log_name = options.log_name || "patroller-api";
-    const type = options.type || "stdout";
-    const level = options.level || "trace";
+export function initLogger(options?: LoggerOptions): Logger {
+    const log_name = options && options.log_name ? options.log_name : "patroller-api";
+    const type = options && options.type ? options.type : "stdout";
+    const level = options && options.level ? options.level : "trace";
 
     const config: Configuration = {
         appenders: { [log_name]: { type } },
@@ -17,5 +17,7 @@ export function initLogger(options: LoggerOptions): Logger {
 
     log4js.configure(config);
 
-    return log4js.getLogger(options.log_name);
+    return log4js.getLogger(log_name);
 }
+
+

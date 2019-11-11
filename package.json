@@ -5,15 +5,16 @@
   "main": "./bin/app.js",
   "scripts": {
     "prepare": "npm run build",
-    "build": "npx tsc",
+    "build": "rm -rf ./dist && npx tsc",
     "gen:spec": "cd ./node_modules/skimtta-oas && npm run gen:spec",
     "gen:tests": "npm run gen:spec && npx oatts generate -s ./node_modules/skimtta-oas/dist/openapi.json -w ./tests",
     "gen:dts": "npm run gen:spec && npx dtsgen -o ./api.d.ts ./node_modules/skimtta-oas/dist/openapi.json",
     "start": "npm run build && node ./bin/app.js",
+    "calendar": "npm run build && node ./bin/calendar.js",
     "format:check": "npx prettier -l './lib/**/*.ts'",
     "format:update": "npx prettier --write './lib/**/*.ts'",
     "lint": "npx tslint --project . --config tslint.json",
-    "test": "npx mocha ./tests"
+    "tests": "npx mocha ./tests"
   },
   "keywords": [
     "MTTA",
@@ -28,21 +29,34 @@
     "mocha": "^6.1.4",
     "oatts": "^1.2.4",
     "prettier": "^1.17.1",
+    "skimtta-oas": "github:ski-mtta/openapi-specification",
     "tslint": "^5.12.1",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "@smartrecruiters/openapi-first": "^0.3.2",
+    "@smartrecruiters/openapi-first": "^0.4.2",
     "@smartrecruiters/openapi-schemas-validator": "^0.2.0",
     "@types/cors": "^2.8.5",
     "@types/express": "^4.16.1",
+    "@types/jsonwebtoken": "^8.3.3",
+    "@types/uuid": "^3.4.4",
+    "argon2": "^0.24.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "csv-parser": "^2.3.0",
     "express": "^4.16.4",
+    "express-bearer-token": "^2.4.0",
+    "generate-password": "^1.4.2",
+    "googleapis": "^39.2.0",
+    "jsonwebtoken": "^8.5.1",
     "log4js": "^4.3.0",
+    "node-google-calendar": "^1.1.1",
     "openapi-schema-validation": "^0.4.2",
-    "skimtta-oas": "github:ski-mtta/openapi-specification",
-    "swagger-routes-express": "^3.0.1"
+    "pg": "^7.11.0",
+    "reflect-metadata": "^0.1.13",
+    "swagger-routes-express": "^3.0.1",
+    "typeorm": "^0.2.17",
+    "uuid": "^3.3.2"
   }
 }
