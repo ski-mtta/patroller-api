@@ -19,15 +19,22 @@ export default class CalendarService {
     }
 
     async getCalendars(): Promise<any[]> {
-        return await this.api.CalendarList.list({})
+        return await this.api.CalendarList.list(this.calendarId.primary, {})
     }
 
     async getEvents(options: SearchEventOptions): Promise<any> {
-        return await this.api.Events.list(this.calendarId.primary, options || {})
+        try {
+            const events = await this.api.Events.list(this.calendarId.primary, options || {})
+            console.log('events', events);
+            return events;
+        } catch (error) {
+            console.log('error', error);
+            throw error;
+        }
+
     }
 
     async updateEvent(target_event: any, new_attendee: Attendee): Promise<any> {
-        console.log('target_event.attendees', target_event.attendees);
         let attendees = target_event.attendees || []
         return await this.api.Events.update(this.calendarId.primary, target_event.id, {
             ...target_event,
@@ -65,7 +72,7 @@ export default class CalendarService {
 
     async scheduleDayPatrol(details: SchedulePatroller): Promise<any> {
         const { startDate, endDate, location, attendee } = details
-
+        console.log('details', details);
         const events = await this.getEvents({
             timeMin: startDate,
             timeMax: endDate,

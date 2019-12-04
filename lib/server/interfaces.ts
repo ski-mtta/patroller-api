@@ -35,7 +35,7 @@ export enum Locations {
     SnowBowl = "Snow Bowl",
     AlpinaShed = "Alpina Shed",
     FireHall = "Fire Hall",
-    Office = "The MTTA Office",
+    Office = "Office",
     Whittakers = "Whittakers",
 }
 

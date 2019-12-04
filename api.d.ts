@@ -130,7 +130,7 @@ declare namespace Components {
          * example:
          * High Hut
          */
-        export type Location = "High Hut" | "Copper Creek" | "The Yurt" | "Snow Bowl" | "Alpina Shed" | "Fire Hall" | "The MTTA Office" | "Whittakers";
+        export type Location = "High Hut" | "Copper Creek" | "The Yurt" | "Snow Bowl" | "Alpina Shed" | "Fire Hall" | "Office" | "Whittakers";
         /**
          * Personal password
          * example:
@@ -295,7 +295,11 @@ declare namespace Components {
             overnight: IsPatrolType;
         }
         export interface SchedulePostResponse {
-            attendees: Attendees;
+            start_date: Date; // date
+            end_date: Date; // date
+            location: Location;
+            day: IsPatrolType;
+            overnight: IsPatrolType;
         }
         /**
          * Ski Patrol Number

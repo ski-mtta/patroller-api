@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
 import PhysicalAddress from "./PhysicalAddress";
+import Schedules from "./Schedules";
 
 @Entity()
 export default class Patroller {
@@ -32,4 +33,7 @@ export default class Patroller {
 
     @OneToOne(type => PhysicalAddress, physicalAddress => physicalAddress.patroller)
     physical_address!: PhysicalAddress;
+
+    @OneToMany(type => Schedules, schedule => schedule.patroller)
+    schedules!: Schedules
 }

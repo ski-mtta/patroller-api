@@ -55,7 +55,7 @@ export async function createPatroller(patroller: Components.Schemas.PatrollersPo
     }
 }
 
-export async function getPatrollerBySpNumber(sp_number: number): Promise<Components.Schemas.PatrollersGetResponse> {
+export async function getPatrollerBySpNumber(sp_number: string): Promise<Components.Schemas.PatrollersGetResponse> {
     const query = Database.connectionManager.get().manager;
 
     const patroller = await query.createQueryBuilder(Entities.Patroller, 'patroller').where("patroller.sp_number = :sp_number", {
@@ -72,7 +72,7 @@ export async function getPatrollerBySpNumber(sp_number: number): Promise<Compone
         id: patroller.id,
         first_name: patroller.first_name,
         last_name: patroller.last_name,
-        sp_number,
+        sp_number: parseInt(sp_number),
         email: patroller.email,
         primary_phone: patroller.primary_phone,
         secondary_phone: patroller.secondary_phone,

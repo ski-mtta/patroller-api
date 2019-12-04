@@ -41,6 +41,8 @@ async function verifyPassword(request: Components.Schemas.AuthenticationPostRequ
             return false;
         }
 
+        console.log('patroller', patroller);
+
         if (
             patroller.password == password
             || (await argon2.verify(patroller.password, password))
