@@ -1,9 +1,7 @@
 const PatrollerApi = require('../dist/server').default;
-
+const config = require('../config.json');
+const credentials = require("../service-credentials.json");
 const api = new PatrollerApi({
-    port: 5000,
-    logger: {
-        type: 'stdout',
-        level: 'info',
-    }
+    ...config,
+    google_credentials: credentials
 });
