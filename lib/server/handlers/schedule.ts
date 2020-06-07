@@ -45,6 +45,27 @@ export async function postPatrollerSchedule(schedule: any): Promise<Components.S
 }
 
 export async function getPatrollerSchedule(sp_number: number): Promise<Components.Schemas.ScheduleGetResponse[]> {
-    const events = await calendar.getEvents({});
+    const query = Database.connectionManager.get().manager;
+    const patroller = await query
+        .createQueryBuilder(Entities.Patroller, 'patroller')
+        .where("patroller.sp_number = :sp_number", {
+            sp_number: sp_number
+        })
+        .getOne();
+
+    if (!patroller) {
+        throw new Error("Failed to find patroller");
+    }
+
+    const schedules = await query
+        .createQueryBuilder(Entities.Schedules, 'schedules')
+        .where("schedules.patroller = :patroller", {
+            patroller: patroller.key
+        })
+        .getMany();
+
+    console.log('schedules', schedules)
+
+    // const events = await calendar.getEvents({});
     return []
 }
